@@ -264,4 +264,89 @@ module.exports = {
             res.status(400).json({ message: `error in getting all student", ${err.message}` })
         }
     },
+    addFaculty: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateFacultyRegisterInput(req.body)
+            //Validation
+            if (!isValid) {
+                return res.status(400).json(errors)
+            }
+            const { name, email, designation, department, facultyMobileNumber,
+                aadharCard, dob, gender } = req.body
+            const faculty = await Faculty.findOne({ email })
+            if (faculty) {
+                errors.email = 'Email already exist'
+                return res.status(400).json(errors)
+            }
+            const avatar = gravatar.url(req.body.email, {
+                s: '200', // Size
+                r: 'pg', // Rating
+                d: 'mm' // Default
+            });
+            let departmentHelper;
+            if (department === "C.S.E") {
+                departmentHelper = "01"
+            }
+            else if (department === "E.C.E") {
+                departmentHelper = "02"
+            }
+            else if (department === "I.T") {
+                departmentHelper = "03"
+            }
+            else if (department === "Mechanical") {
+                departmentHelper = "04"
+            }
+            else if (department === "Civil") {
+                departmentHelper = "05"
+            }
+            else {
+                departmentHelper = "06"
+            }
+
+            const faculties = await Faculty.find({ department })
+            let helper;
+            if  (faculties.length < 10) {
+                helper = "00" + faculties.length.toString()
+            }
+            else if (faculties.length < 100 && faculties.length > 9) {
+                helper = "0" + faculties.length.toString()
+            }
+            else {
+                helper = faculties.length.toString()
+            }
+            let hashedPassword;
+            hashedPassword = await bcrypt.hash(dob, 10)
+            var date = new Date();
+            const joiningYear = date.getFullYear()
+            var components = [
+                "FAC",
+                date.getFullYear(),
+                departmentHelper,
+                helper
+            ];
+
+            var registrationNumber = components.join("");
+            const newFaculty = await new Faculty({
+                name,
+                email,
+                designation,
+                password:hashedPassword,
+                department,
+                facultyMobileNumber,
+                gender,
+                avatar,
+                aadharCard,
+                registrationNumber,
+                dob,
+                joiningYear
+            })
+            await newFaculty.save()
+            res.status(200).json({ result: newFaculty })
+        }
+        catch (err) {
+            console.log("error", err.message)
+            res.status(400).json({ message: `error in adding new Faculty", ${err.message}` })
+        }
+
+    },
 }
