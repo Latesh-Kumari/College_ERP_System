@@ -158,4 +158,97 @@ module.exports = {
         }
 
     },
+    addStudent: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateStudentRegisterInput(req.body);
+
+            if (!isValid) {
+                return res.status(400).json(errors)
+            }
+            const { name, email, year, fatherName, aadharCard,
+                gender, department, section, dob, studentMobileNumber,
+                fatherMobileNumber } = req.body
+
+            const student = await Student.findOne({ email })
+            if (student) {
+                errors.email = "Email already exist"
+                return res.status(400).json(errors)
+            }
+            const avatar = gravatar.url(email,{s:'200',r:'pg', d:'mm'})
+            let departmentHelper;
+            if (department === "C.S.E") {
+                departmentHelper = "01"
+            }
+            else if (department === "E.C.E") {
+                departmentHelper = "02"
+            }
+            else if (department === "I.T") {
+                departmentHelper = "03"
+            }
+            else if (department === "Mechanical") {
+                departmentHelper = "04"
+            }
+            else if (department === "Civil") {
+                departmentHelper = "05"
+
+            }
+            else {
+                departmentHelper = "06"
+            }
+
+            const students = await Student.find({ department })
+            let helper;
+            if (students.length < 10) {
+                helper = "00" + students.length.toString()
+            }
+            else if (students.length < 100 && students.length > 9) {
+                helper = "0" + students.length.toString()
+            }
+            else {
+                helper = students.length.toString()
+            }
+            let hashedPassword;
+            hashedPassword = await bcrypt.hash(dob, 10)
+            var date = new Date();
+            const batch = date.getFullYear()
+            var components = [
+                "STU",
+                date.getFullYear(),
+                departmentHelper,
+                helper
+            ];
+
+            var registrationNumber = components.join("");
+            const newStudent = await new Student({
+                name,
+                email,
+                password: hashedPassword,
+                year,
+                fatherName,
+                aadharCard,
+                gender,
+                registrationNumber,
+                department,
+                section,
+                batch,
+                avatar,
+                dob,
+                studentMobileNumber,
+                fatherMobileNumber
+            })
+            await newStudent.save()
+            const subjects = await Subject.find({ year })
+            if (subjects.length !== 0) {
+                for (var i = 0; i < subjects.length; i++) {
+                    newStudent.subjects.push(subjects[i]._id)
+                }
+            }
+            await newStudent.save()
+            res.status(200).json({ result: newStudent })
+        }
+        catch (err) {
+            res.status(400).json({ message: `error in adding new student", ${err.message}` })
+        }
+
+    },
 }
