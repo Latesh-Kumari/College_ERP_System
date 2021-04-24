@@ -9,12 +9,12 @@ const StudentSubjectList = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
-        // dispatch(getAllSubjects())
+        dispatch(getAllSubjects())
     },[])
     return (
         <>
             {store.student.isAuthenticated ? <>
-                {/*<HomeHelper />*/}
+                <HomeHelper />
                 <div className="container">
                     <div className="row mt-5">
                         <div className="col-md-6 m-auto">
