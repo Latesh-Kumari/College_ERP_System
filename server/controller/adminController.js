@@ -423,4 +423,14 @@ module.exports = {
             console.log("Error in gettting all faculties", err.message)
         }
     },
+    getAllStudent: async (req, res, next) => {
+        try {
+            const { department, year } = req.body
+            const allStudents = await Student.find({ department, year })
+            res.status(200).json({ result: allStudents })
+        }
+        catch (err) {
+            console.log("Error in gettting all students", err.message)
+        }
+    },
 }
