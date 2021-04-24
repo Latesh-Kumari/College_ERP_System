@@ -114,4 +114,48 @@ module.exports = {
         }
 
     },
+    adminLogin: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateAdminLoginInput(req.body);
+
+            // Check Validation
+            if (!isValid) {
+                return res.status(400).json(errors);
+            }
+            const { registrationNumber, password } = req.body;
+
+            const admin = await Admin.findOne({ registrationNumber })
+            if (!admin) {
+                errors.registrationNumber = 'Registration number not found';
+                return res.status(404).json(errors);
+            }
+            const isCorrect = await bcrypt.compare(password, admin.password)
+            if (!isCorrect) {
+                errors.password = 'Invalid Credentials';
+                return res.status(404).json(errors);
+            }
+            const payload = {
+                id: admin.id, name: admin.name, email: admin.email,
+                contactNumber: admin.contactNumber, avatar: admin.avatar,
+                registrationNumber: admin.registrationNumber,
+                joiningYear: admin.joiningYear,
+                department: admin.department
+            };
+            jwt.sign(
+                payload,
+                keys.secretOrKey,
+                { expiresIn: 7200 },
+                (err, token) => {
+                    res.json({
+                        success: true,
+                        token: 'Bearer ' + token
+                    });
+                }
+            );
+        }
+        catch (err) {
+            console.log("Error in admin login", err.message)
+        }
+
+    },
 }
