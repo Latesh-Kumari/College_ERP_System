@@ -101,4 +101,4 @@ const AdminGetAllFaculty = () => {
     )
 }
 
-// export default AdminGetAllFaculty
+export default AdminGetAllFaculty
