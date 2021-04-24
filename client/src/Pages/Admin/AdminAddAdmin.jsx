@@ -140,6 +140,6 @@ const AdminAddAdmin = () => {
     )
 }
 
-export default AdminAddAdmin
+
 
 
