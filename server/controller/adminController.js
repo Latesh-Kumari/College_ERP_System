@@ -362,4 +362,43 @@ module.exports = {
         }
 
     },
+    addSubject: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateSubjectRegisterInput(req.body)
+            //Validation
+            if (!isValid) {
+                return res.status(400).json(errors)
+            }
+            const { totalLectures, department, subjectCode,
+                subjectName, year } = req.body
+            const subject = await Subject.findOne({ subjectCode })
+            if (subject) {
+                errors.subjectCode = "Given Subject is already added"
+                return res.status(400).json(errors)
+            }
+            const newSubject = await new Subject({
+                totalLectures,
+                department,
+                subjectCode,
+                subjectName,
+                year
+            })
+            await newSubject.save()
+            const students = await Student.find({ department, year })
+            if (students.length === 0) {
+                errors.department = "No branch found for given subject"
+                return res.status(400).json(errors)
+            }
+            else {
+                for (var i = 0; i < students.length; i++) {
+                    students[i].subjects.push(newSubject._id)
+                    await students[i].save()
+                }
+                res.status(200).json({ newSubject })
+            }
+        }
+        catch (err) {
+            console.log(`error in adding new subject", ${err.message}`)
+        }
+    },
 }
