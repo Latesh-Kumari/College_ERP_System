@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getMarks } from '../../redux/action/studentAction'
-import HomeHelper from '../../Components/HomeHelper'
+// import { getMarks } from '../../redux/action/studentAction'
+// import HomeHelper from '../../Components/HomeHelper'
 import { useHistory } from 'react-router-dom'
 
 const StudentTestPerformance = () => {
