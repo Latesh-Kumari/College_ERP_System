@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+// import { useSelector, useDispatch } from 'react-redux'
+// import { useHistory } from 'react-router-dom'
 // import { adminGetAllFaculty } from '../../redux/action/adminAction'
 // import AdminHomeHelper from '../../Components/AdminHomeHelper'
-// import classnames from 'classnames'
+import classnames from 'classnames'
 
 const AdminGetAllFaculty = () => {
     const store = useSelector((store) => store)
