@@ -349,4 +349,17 @@ module.exports = {
         }
 
     },
+    getAllFaculty: async (req, res, next) => {
+        try {
+            const faculties = await Faculty.find({})
+            if (faculties.length === 0) {
+                return res.status(404).json({ message: "No Record Found" })
+            }
+            res.status(200).json({ result: faculties })
+        }
+        catch (err) {
+            res.status(400).json({ message: `error in getting new Faculty", ${err.message}` })
+        }
+
+    },
 }
