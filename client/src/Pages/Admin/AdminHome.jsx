@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
-import AdminHomeHelper from '../../Components/AdminHomeHelper'
+// import AdminHomeHelper from '../../Components/AdminHomeHelper'
 
 const AdminHome = () => {
     const store = useSelector((store) => store)
