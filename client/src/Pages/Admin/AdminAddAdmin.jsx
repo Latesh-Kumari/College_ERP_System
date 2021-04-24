@@ -8,7 +8,16 @@ import classnames from 'classnames'
 
 
 const AdminAddAdmin = () => {
-
+    const store = useSelector((state) => state)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [department, setDepartment] = useState('')
+    const [dob, setDob] = useState('')
+    const [contactNumber, setContactNumber] = useState('')
+    const [error, setError] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
 
 
     useEffect(() => {
