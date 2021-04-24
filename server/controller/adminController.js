@@ -251,4 +251,17 @@ module.exports = {
         }
 
     },
+    getAllStudents: async (req, res, next) => {
+        try {
+            const { branch, name } = req.body
+            const students = await Student.find({})
+            if (students.length === 0) {
+                return res.status(404).json({ message: "No students found" })
+            }
+            res.status(200).json({ result: students })
+        }
+        catch (err) {
+            res.status(400).json({ message: `error in getting all student", ${err.message}` })
+        }
+    },
 }
