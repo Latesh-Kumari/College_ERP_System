@@ -440,7 +440,7 @@ module.exports = {
             res.status(200).json({ result: allSubjects })
         }
         catch (err) {
-            console.log("Error in gettting all students", err.message)
+            console.log("Error in getting all students", err.message)
         }
     }
 }
