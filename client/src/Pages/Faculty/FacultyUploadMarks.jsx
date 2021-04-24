@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import classnames from 'classnames'
-import { fetchStudents, uploadMarks } from '../../redux/action/facultyAction'
-import FacultyHomeHelper from '../../Components/FacultyHomeHelper'
+// import { fetchStudents, uploadMarks } from '../../redux/action/facultyAction'
+// import FacultyHomeHelper from '../../Components/FacultyHomeHelper'
 import { useHistory } from 'react-router-dom'
 
 
