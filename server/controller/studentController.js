@@ -212,4 +212,27 @@ module.exports = {
             return res.status(200)
         }
     },
+    postPrivateChat: async (req, res, next) => {
+        try {
+            const { senderName, senderId, roomId,
+                receiverRegistrationNumber,senderRegistrationNumber,message } = req.body
+
+            const receiverStudent = await Student.findOne({ registrationNumber: receiverRegistrationNumber })
+            const newMessage = await new Message({
+                senderName,
+                senderId,
+                roomId,
+                message,
+                senderRegistrationNumber,
+                receiverRegistrationNumber,
+                receiverName: receiverStudent.name,
+                receiverId: receiverStudent._id,
+                createdAt: new Date()
+            })
+            await newMessage.save()
+        }
+        catch (err) {
+            console.log("Error in post private chat", err.message)
+        }
+    },
 }
