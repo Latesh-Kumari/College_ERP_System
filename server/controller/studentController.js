@@ -331,4 +331,39 @@ module.exports = {
             console.log("Error in getting previous chats", err.message)
         }
     },
+    updateProfile: async (req, res, next) => {
+        try {
+            const {email, gender, studentMobileNumber, fatherName,
+                fatherMobileNumber, aadharCard} = req.body
+            const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
+            const imgResponse = await cloudinary.uploader.upload(userPostImg)
+            const student = await Student.findOne({ email })
+            if (gender) {
+                student.gender = gender
+                await student.save()
+            }
+            if (studentMobileNumber) {
+                student.studentMobileNumber = studentMobileNumber
+                await student.save()
+            }
+            if (fatherName) {
+                student.fatherName = fatherName
+                await student.save()
+            }
+            if (fatherMobileNumber) {
+                student.fatherMobileNumber = fatherMobileNumber
+                await student.save()
+            }
+            if (aadharCard) {
+                student.aadharCard = aadharCard
+                await student.save()
+            }
+            student.avatar = imgResponse.secure_url
+            await student.save()
+            res.status(200).json(student)
+        }
+        catch (err) {
+            console.log("Error in updating Profile", err.message)
+        }
+    },
 }
