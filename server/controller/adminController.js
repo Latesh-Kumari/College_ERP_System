@@ -11,10 +11,10 @@ const validateAdminLoginInput = require('../validation/adminLogin')
 const validateSubjectRegisterInput = require('../validation/subjectRegister')
 
 //Models
-//const Subject = require('../models/subject')
-//const Student = require('../models/student')
-//const Faculty = require('../models/faculty')
-//const Admin = require('../models/admin')
+const Subject = require('../models/subject')
+const Student = require('../models/student')
+const Faculty = require('../models/faculty')
+const Admin = require('../models/admin')
 
 //Config
 //const keys = require('../config/key')

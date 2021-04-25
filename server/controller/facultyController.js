@@ -1,11 +1,11 @@
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
 //const sendEmail = require('../utils/nodemailer')
-//const Student = require('../models/student')
-//const Subject = require('../models/subject')
-//const Faculty = require('../models/faculty')
-//const Attendence = require('../models/attendence')
-// const Mark = require('../models/marks')
+const Student = require('../models/student')
+const Subject = require('../models/subject')
+const Faculty = require('../models/faculty')
+const Attendence = require('../models/attendence')
+const Mark = require('../models/marks')
 
 //const keys = require('../config/key')
 
