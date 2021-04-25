@@ -235,4 +235,26 @@ module.exports = {
             console.log("Error in post private chat", err.message)
         }
     },
+    getPrivateChat: async (req, res, next) => {
+        try {
+            const { roomId } = req.params
+            const swap = (input, value_1, value_2) => {
+                let temp = input[value_1];
+                input[value_1] = input[value_2];
+                input[value_2] = temp;
+            }
+            const allMessage = await Message.find({ roomId })
+            let tempArr = roomId.split(".")
+            swap(tempArr, 0, 1)
+            let secondRomId = tempArr[0] + '.' + tempArr[1]
+            const allMessage2 = await Message.find({ roomId: secondRomId })
+            var conversation = allMessage.concat(allMessage2);
+            conversation.sort();
+            res.status(200).json({ result: conversation })
+        }
+        catch (err) {
+            console.log("errr in getting private chat server side", err.message)
+
+        }
+    },
 }
