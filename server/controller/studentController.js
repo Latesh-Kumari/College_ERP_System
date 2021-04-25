@@ -107,4 +107,31 @@ module.exports = {
             return res.status(400).json({ message: err.message })
         }
     },
+    updatePassword: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateStudentUpdatePassword(req.body);
+            if (!isValid) {
+                return res.status(400).json(errors);
+            }
+            const { registrationNumber, oldPassword, newPassword, confirmNewPassword } = req.body
+            if (newPassword !== confirmNewPassword) {
+                errors.confirmNewpassword = 'Password Mismatch'
+                return res.status(400).json(errors);
+            }
+            const student = await Student.findOne({ registrationNumber })
+            const isCorrect = await bcrypt.compare(oldPassword, student.password)
+            if (!isCorrect) {
+                errors.oldPassword = 'Invalid old Password';
+                return res.status(404).json(errors);
+            }
+            let hashedPassword;
+            hashedPassword = await bcrypt.hash(newPassword, 10)
+            student.password = hashedPassword;
+            await student.save()
+            res.status(200).json({ message: "Password Updated" })
+        }
+        catch (err) {
+            console.log("Error in updating password", err.message)
+        }
+    },
 }
