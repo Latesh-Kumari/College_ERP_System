@@ -171,4 +171,19 @@ module.exports = {
             console.log("Error in sending email", err.message)
         }
     },
+    getStudentByRegName: async (req, res, next) => {
+        try {
+            const { registrationNumber } = req.body
+            const students = await Student.findOne({ registrationNumber })
+            if (!students) {
+                return res.status(400).json({ message: "No student found" })
+            }
+            return res.status(200).json({ result: students })
+
+        }
+        catch (err) {
+            return res.status(400).json({ message: err.message })
+        }
+    },
+
 }
