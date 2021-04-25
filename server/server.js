@@ -30,6 +30,9 @@ app.use(function (req, res, next) {
 });
 
 // Import for Routes
+const adminRoutes = require('./routes/adminRoutes')
+const facultyRoutes = require('./routes/facultyRoutes')
+const studentRoutes = require('./routes/studentRoutes')
 
 //Passport Middleware
 app.use(passport.initialize());
@@ -56,6 +59,9 @@ io.on('connection', (socket) => {
 })
 
 // Routes
+app.use('/api/admin', adminRoutes)
+app.use('/api/faculty', facultyRoutes)
+app.use('/api/student', studentRoutes)
 
 //Catching 404 Error
 app.use((req, res, next) => {
