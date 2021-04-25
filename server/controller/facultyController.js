@@ -227,5 +227,42 @@ module.exports = {
             console.log("Error in updating password", err.message)
         }
     },
+    forgotPassword: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateForgotPassword(req.body);
+            if (!isValid) {
+                return res.status(400).json(errors);
+            }
+            const { email } = req.body
+            const faculty = await Faculty.findOne({ email })
+            if (!faculty) {
+                errors.email = "Email Not found, Provide registered email"
+                return res.status(400).json(errors)
+            }
+            function generateOTP() {
+                var digits = '0123456789';
+                let OTP = '';
+                for (let i = 0; i < 6; i++) {
+                    OTP += digits[Math.floor(Math.random() * 10)];
+                }
+                return OTP;
+            }
+            const OTP = await generateOTP()
+            faculty.otp = OTP
+            await faculty.save()
+            await sendEmail(faculty.email, OTP, "OTP")
+            res.status(200).json({ message: "check your registered email for OTP" })
+            const helper = async () => {
+                faculty.otp = ""
+                await faculty.save()
+            }
+            setTimeout(function () {
+                helper()
+            }, 300000);
+        }
+        catch (err) {
+            console.log("Error in sending email", err.message)
+        }
+    },
 
 }
