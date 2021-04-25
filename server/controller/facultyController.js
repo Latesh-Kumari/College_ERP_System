@@ -292,5 +292,31 @@ module.exports = {
         }
 
     },
-
+    updateProfile: async (req, res, next) => {
+        try {
+            const { email, gender, facultyMobileNumber,
+                aadharCard } = req.body
+            const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
+            const imgResponse = await cloudinary.uploader.upload(userPostImg)
+            const faculty = await Faculty.findOne({ email })
+            if (gender) {
+                faculty.gender = gender
+                await faculty.save()
+            }
+            if (facultyMobileNumber) {
+                faculty.facultyMobileNumber = facultyMobileNumber
+                await faculty.save()
+            }
+            if (aadharCard) {
+                faculty.aadharCard = aadharCard
+                await faculty.save()
+            }
+            faculty.avatar = imgResponse.secure_url
+            await faculty.save()
+            res.status(200).json(faculty)
+        }
+        catch (err) {
+            console.log("Error in updating Profile", err.message)
+        }
+    }
 }
