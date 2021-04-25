@@ -93,4 +93,18 @@ module.exports = {
             return res.status(400).json({ message: err.message })
         }
     },
+    getStudentByName: async (req, res, next) => {
+        try {
+            const { name } = req.body
+            const students = await Student.find({ name })
+            if (students.length === 0) {
+                return res.status(400).json({ message: "No student found" })
+            }
+            return res.status(200).json({ result: students })
+
+        }
+        catch (err) {
+            return res.status(400).json({ message: err.message })
+        }
+    },
 }
