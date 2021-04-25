@@ -79,4 +79,18 @@ module.exports = {
         }
 
     },
+    getAllStudents: async (req, res, next) => {
+        try {
+            const { department, year, section } = req.body;
+            const students = await Student.find({ department, year, section })
+            if (students.length === 0) {
+                return res.status(400).json({ message: "No student found" })
+            }
+            return res.status(200).json({ result: students })
+
+        }
+        catch (err) {
+            return res.status(400).json({ message: err.message })
+        }
+    },
 }
