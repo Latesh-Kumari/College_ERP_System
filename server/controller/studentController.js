@@ -53,4 +53,30 @@ module.exports = {
 
 
     },
+    checkAttendence: async (req, res, next) => {
+        try {
+            const studentId = req.user._id
+            const attendence = await Attendence.find({ student: studentId }).populate('subject')
+            if (!attendence) {
+                res.status(400).json({ message: "Attendence not found" })
+            }
+            res.status(200).json({
+                result: attendence.map(att => {
+                    let res = {};
+                    res.attendence = ((att.lectureAttended / att.totalLecturesByFaculty) * 100).toFixed(2)
+                    res.subjectCode = att.subject.subjectCode
+                    res.subjectName = att.subject.subjectName
+                    res.maxHours = att.subject.totalLectures
+                    res.absentHours = att.totalLecturesByFaculty - att.lectureAttended
+                    res.lectureAttended = att.lectureAttended
+                    res.totalLecturesByFaculty = att.totalLecturesByFaculty
+                    return res
+                })
+            })
+        }
+        catch (err) {
+            console.log("Error in fetching attendence",err.message)
+        }
+
+    },
 }
