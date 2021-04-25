@@ -59,5 +59,42 @@ module.exports = {
             console.log("Error in faculty login", err.message)
         }
     },
+    fetchStudents: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateFetchStudentsInput(req.body);
+            if (!isValid) {
+                return res.status(400).json(errors);
+            }
+            const { department, year, section } = req.body;
+            const subjectList = await Subject.find({ department, year })
+            if (subjectList.length === 0) {
+                errors.department = 'No Subject found in given department';
+                return res.status(404).json(errors);
+            }
+
+            const students = await Student.find({ department, year, section })
+            if (students.length === 0) {
+                errors.department = 'No Student found'
+                return res.status(404).json(errors);
+            }
+            res.status(200).json({
+                result: students.map(student => {
+                    var student = {
+                        _id: student._id,
+                        registrationNumber: student.registrationNumber,
+                        name: student.name
+                    }
+                    return student
+                }),
+                subjectCode: subjectList.map(sub => {
+                    return sub.subjectCode
+                })
+            })
+        }
+        catch (err) {
+            console.log("error in faculty fetchStudents", err.message)
+        }
+
+    },
 
 }
