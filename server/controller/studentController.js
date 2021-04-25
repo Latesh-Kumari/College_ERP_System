@@ -185,5 +185,31 @@ module.exports = {
             return res.status(400).json({ message: err.message })
         }
     },
-
+    postOTP: async (req, res, next) => {
+        try {
+            const { errors, isValid } = validateOTP(req.body);
+            if (!isValid) {
+                return res.status(400).json(errors);
+            }
+            const { email, otp, newPassword, confirmNewPassword } = req.body
+            if (newPassword !== confirmNewPassword) {
+                errors.confirmNewPassword = 'Password Mismatch'
+                return res.status(400).json(errors);
+            }
+            const student = await Student.findOne({ email });
+            if (student.otp !== otp) {
+                errors.otp = "Invalid OTP, check your email again"
+                return res.status(400).json(errors)
+            }
+            let hashedPassword;
+            hashedPassword = await bcrypt.hash(newPassword, 10)
+            student.password = hashedPassword;
+            await student.save()
+            return res.status(200).json({ message: "Password Changed" })
+        }
+        catch (err) {
+            console.log("Error in submitting otp", err.message)
+            return res.status(200)
+        }
+    },
 }
