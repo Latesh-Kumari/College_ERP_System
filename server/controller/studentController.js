@@ -306,4 +306,29 @@ module.exports = {
             console.log("Error in getting different chats", err.message)
         }
     },
+    previousChats: async (req, res, next) => {
+        try {
+            const { senderName } = req.params
+            const newChats = await Message.find({ senderName })
+            // if (newChats.length === 0) {
+            //     res.status(404).json({ result: "No any new Chat" })
+            // }
+            var filteredObj = newChats.map(obj => {
+                let filteredObj = {
+                    senderName: obj.senderName,
+                    receiverName: obj.receiverName,
+                    senderRegistrationNumber: obj.senderRegistrationNumber,
+                    receiverRegistrationNumber: obj.receiverRegistrationNumber,
+                    receiverId: obj.receiverId
+                }
+                return filteredObj
+            })
+            var filteredList = [...new Set(filteredObj.map(JSON.stringify))].map(JSON.parse)
+            console.log("filterdList",filteredList)
+            res.status(200).json({ result: filteredList })
+        }
+        catch (err) {
+            console.log("Error in getting previous chats", err.message)
+        }
+    },
 }
