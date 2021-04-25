@@ -379,4 +379,32 @@ module.exports = {
             return res.status(400).json({"Error in getting all subjects":err.message})
         }
     },
+    getMarks: async (req, res, next) => {
+        try {
+            console.log("req.user",req.user)
+            const {department, year, id} = req.user
+            const getMarks = await Mark.find({ department, student: id }).populate('subject')
+            console.log("getMarks",getMarks)
+
+            const CycleTest1 = getMarks.filter((obj) => {
+                return obj.exam === "CycleTest1"
+            })
+            const CycleTest2 = getMarks.filter((obj) => {
+                return obj.exam === "CycleTest2"
+            })
+            const Semester = getMarks.filter((obj) => {
+                return obj.exam === "Semester"
+            })
+            res.status(200).json({
+                result: {
+                    CycleTest1,
+                    CycleTest2,
+                    Semester
+
+                }})
+        }
+        catch (err) {
+            return res.status(400).json({ "Error in getting marks": err.message })
+        }
+    }
 }
