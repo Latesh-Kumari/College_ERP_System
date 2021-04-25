@@ -366,4 +366,17 @@ module.exports = {
             console.log("Error in updating Profile", err.message)
         }
     },
+    getAllSubjects: async (req, res, next) => {
+        try {
+            const { department, year } = req.user;
+            const subjects = await Subject.find({ department, year })
+            if (subjects.length === 0) {
+                return res.status(404).json({ message: "No subjects founds" })
+            }
+            res.status(200).json({result: subjects })
+        }
+        catch (err) {
+            return res.status(400).json({"Error in getting all subjects":err.message})
+        }
+    },
 }
