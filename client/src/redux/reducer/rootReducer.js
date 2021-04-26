@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import facultyReducer from './facultyReducer'
+import facultyReducer from './facultuReducer'
 import adminReducer from './adminReducer'
 import studentReducer from './studentReducer'
 import errorReducerHelper from './errorReducerHelper'

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-// import { adminGetAllSubject } from '../../redux/action/adminAction'
-// import AdminHomeHelper from '../../Components/AdminHomeHelper'
+import { adminGetAllSubject } from '../../redux/action/adminAction'
+import AdminHomeHelper from '../../Components/AdminHomeHelper'
 import classnames from 'classnames'
 
 const AdminGetAllSubjects = () => {

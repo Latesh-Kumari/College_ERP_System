@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import { getAllSubjects } from '../../redux/action/studentAction'
-// import HomeHelper from '../../Components/HomeHelper'
+import { getAllSubjects } from '../../redux/action/studentAction'
+import HomeHelper from '../../Components/HomeHelper'
 import { useHistory } from 'react-router-dom'
 
 const StudentSubjectList = () => {

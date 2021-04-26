@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, withRouter } from 'react-router-dom'
 
 //
-// import { facultyUpdate, facultyLogout} from '../../redux/action/facultyAction'
-// import FacultyHomeHelper from '../../Components/FacultyHomeHelper'
+import { facultyUpdate, facultyLogout} from '../../redux/action/facultyAction'
+import FacultyHomeHelper from '../../Components/FacultyHomeHelper'
 
 
 const FacultyUpdateProfile = () => {

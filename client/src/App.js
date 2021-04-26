@@ -2,35 +2,36 @@ import React from 'react';
 import {useSelector} from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-// import setAuthToken from './redux/utils/setAuthToken'
-// import store from './redux/store'
+import setAuthToken from './redux/utils/setAuthToken'
+import store from './redux/store'
+
+import { setFacultyUser, facultyLogout } from './redux/action/facultyAction'
 //
-// import { setFacultyUser, facultyLogout } from './redux/action/facultyAction'
+import { setAdminUser, adminLogout, adminGetAllStudent } from './redux/action/adminAction'
 //
-// import { setAdminUser, adminLogout, adminGetAllStudent } from './redux/action/adminAction'
-//
-// import { setStudentUser, studentLogout } from './redux/action/studentAction'
-//
-//
-// import LoginPage from './Pages/LoginPage'
-// import Home from './Pages/StudentHome'
+import { setStudentUser, studentLogout } from './redux/action/studentAction'
 //
 //
-// import StudentDetails from './Pages/StudentDetails'
-// import facultyInterface from './Pages/FacultyInterface'
-// import AttendenceFaculty from './Pages/AttendenceFaculty'
+import LoginPage from './Pages/LoginPage'
+import Home from './Pages/StudentHome'
 //
-// import AdminAddStudent from './Pages/AdminAddStudent'
-// import AdminAddFaculty from './Pages/AdminAddFaculty'
-// import AdminAddSubject from './Pages/AdminAddSubject'
-// import StudentAttendencePage from './Pages/StudentAttendencePage'
-// import FacultyStudentLoginPags from './Pages/FacultyStudentLoginPags'
-// import StudentUpdatePassword from './Pages/StudentUpdatePassword'
-// import FacultyUpdatePassword from './Pages/FacultyUpdatePassword'
-// import ForgotPassword from './Pages/ForgotPassword'
-// import Chat from './Pages/Chat'
-// import RecieverUserDetails from './Pages/RecieverUserDetails'
-// import StudentUpdateProfile from './Pages/StudentUpdateProfile'
+//
+import StudentDetails from './Pages/StudentDetails'
+import facultyInterface from './Pages/FacultyInterface'
+import AttendenceFaculty from './Pages/AttendenceFaculty'
+//
+//
+import AdminAddStudent from './Pages/AdminAddStudent'
+import AdminAddFaculty from './Pages/AdminAddFaculty'
+import AdminAddSubject from './Pages/AdminAddSubject'
+import StudentAttendencePage from './Pages/StudentAttendencePage'
+import FacultyStudentLoginPags from './Pages/FacultyStudentLoginPags'
+import StudentUpdatePassword from './Pages/StudentUpdatePassword'
+import FacultyUpdatePassword from './Pages/FacultyUpdatePassword'
+import ForgotPassword from './Pages/ForgotPassword'
+import Chat from './Pages/Chat'
+import RecieverUserDetails from './Pages/RecieverUserDetails'
+import StudentUpdateProfile from './Pages/StudentUpdateProfile'
 
 import StudentSubjectList from './Pages/Student/StudentSubjectList'
 

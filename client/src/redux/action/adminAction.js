@@ -2,7 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken'
 import jwt_decode from 'jwt-decode';
 import {
-    SET_ADMIN, SET_ERRORS, 
+    SET_ADMIN, SET_ERRORS,
     GET_SUBJECTS
 } from '../actionTypes'
 
@@ -54,7 +54,7 @@ const adminGetAllFacultyHelper = (data) => {
     return {
         type: "GET_ALL_FACULTY",
         payload: data
-    }   
+    }
 }
 
 const adminGetAllStudentHelper = (data) => {
@@ -80,7 +80,7 @@ export const adminLogin = (adminCredential) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/login",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/login",
                 data: adminCredential
             })
             const { token } = data;
@@ -107,7 +107,7 @@ export const adminGetAllSubjects = () => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: "http://localhost:5000/api/admin/getSubjects",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/getSubjects",
             })
             dispatch(getSubjctsHelper(data))
         }
@@ -122,7 +122,7 @@ export const adminAddFaculty = (facultyCredential) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/addFaculty",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/addFaculty",
                 data: facultyCredential
             })
             dispatch(adminAddFacultyFlag(true))
@@ -142,7 +142,7 @@ export const adminAddStudent = (studentCredential) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/addStudent",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/addStudent",
                 data: studentCredential
             })
             dispatch(adminAddStudentFlag(true))
@@ -162,7 +162,7 @@ export const adminAddSubject = (subjectCredential) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/addSubject",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/addSubject",
                 data: subjectCredential
             })
             dispatch(adminAddSubjectFlag(true))
@@ -183,7 +183,7 @@ export const adminAddAdmin = (adminCredentails) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/addAdmin",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/addAdmin",
                 data: adminCredentails
             })
             dispatch(adminAddAdminFlag(true))
@@ -204,7 +204,7 @@ export const adminGetAllFaculty = (department) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/getAllFaculty",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/getAllFaculty",
                 data: department
             })
             dispatch(adminGetAllFacultyHelper(data.result))
@@ -223,7 +223,7 @@ export const adminGetAllStudent = (searchCredentials) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/getAllStudent",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/getAllStudent",
                 data: searchCredentials
             })
             dispatch(adminGetAllStudentHelper(data.result))
@@ -242,7 +242,7 @@ export const adminGetAllSubject = (department) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/admin/getAllSubject",
+                url: "https://immense-fortress-16423.herokuapp.com/api/admin/getAllSubject",
                 data: department
             })
             dispatch(adminGetAllSubjectHelper(data.result))
