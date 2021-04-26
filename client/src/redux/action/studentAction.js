@@ -84,7 +84,7 @@ const getMarksHelper = (data) => {
         type: "GET_MARKS",
         payload: data
     }
-    
+
 }
 
 export const studentLogin = (studentCredential) => {
@@ -92,7 +92,7 @@ export const studentLogin = (studentCredential) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/student/login",
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/login",
                 data: studentCredential
             })
             const { token } = data;
@@ -104,7 +104,7 @@ export const studentLogin = (studentCredential) => {
             const decoded = jwt_decode(token);
             // Set current user
             dispatch(setStudent(decoded))
-           
+
         }
         catch (err) {
             dispatch({
@@ -121,7 +121,7 @@ export const studentUpdatePassword = (passwordData) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/student/updatePassword",
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/updatePassword",
                 data: passwordData
             })
             alert("Password Updated Successfully")
@@ -140,7 +140,7 @@ export const chatHelper = (name) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/student/getStudentByName",
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/getStudentByName",
                 data: name
             })
             dispatch(chatHelp(data.result))
@@ -156,7 +156,7 @@ export const getStudentByRegName = (registrationNumber) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/student/getStudentByRegName",
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/getStudentByRegName",
                 data: { registrationNumber }
             })
             dispatch(getStudentByRegNameHelper(data.result))
@@ -165,7 +165,7 @@ export const getStudentByRegName = (registrationNumber) => {
             console.log('Error in getting student by registration number', err.message)
         }
     }
-    
+
 }
 
 
@@ -177,7 +177,7 @@ export const getOTPStudent = (studentEmail) => {
         try {
             await axios({
                 method: 'Post',
-                url: 'http://localhost:5000/api/student/forgotPassword',
+                url: 'https://immense-fortress-16423.herokuapp.com/api/student/forgotPassword',
                 data: studentEmail
             })
             alert("Otp has been sent to your email")
@@ -198,7 +198,7 @@ export const submitOTPStudent = (newPasswordWithOtp, history) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/student/postOTP" ,
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/postOTP" ,
                 data:newPasswordWithOtp
             })
             alert("Password Update, kindly login with updated password")
@@ -218,7 +218,7 @@ export const sendMessage = (room,messageobj) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: `http://localhost:5000/api/student/chat/${room}`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/student/chat/${room}`,
                 data: messageobj
             })
         }
@@ -234,7 +234,7 @@ export const getPrivateConversation = (roomId) => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: `http://localhost:5000/api/student/chat/${roomId}`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/student/chat/${roomId}`,
             })
             dispatch(privateConversation(data.result))
         }
@@ -249,7 +249,7 @@ export const getPrivateConversation2 = (roomId) => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: `http://localhost:5000/api/student/chat/${roomId}`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/student/chat/${roomId}`,
             })
             dispatch(privateConversation2(data.result))
         }
@@ -264,7 +264,7 @@ export const previousChats = (senderName) => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: `http://localhost:5000/api/student/chat/previousChats/${senderName}`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/student/chat/previousChats/${senderName}`,
             })
             dispatch(previousChatsHelper(data.result))
         }
@@ -280,7 +280,7 @@ export const newerChats = (receiverName) => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: `http://localhost:5000/api/student/chat/newerChats/${receiverName}`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/student/chat/newerChats/${receiverName}`,
             })
             dispatch(newerChatsHelper(data.result))
         }
@@ -295,7 +295,7 @@ export const studentUpdate = (updatedData) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: `http://localhost:5000/api/student/updateProfile`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/student/updateProfile`,
                 data: updatedData
             })
         }
@@ -310,7 +310,7 @@ export const getAllSubjects = () => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: "http://localhost:5000/api/student/getAllSubjects"
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/getAllSubjects"
             })
             dispatch(getAllSubjectsHelper(data.result))
         }
@@ -325,14 +325,14 @@ export const fetchAttendence = () => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: "http://localhost:5000/api/student/checkAttendence"
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/checkAttendence"
             })
             dispatch(fetchAttendenceHelper(data.result))
         }
         catch (err) {
             console.log("Error in sending message", err.message)
         }
-    
+
     }
 }
 
@@ -341,7 +341,7 @@ export const getMarks = () => {
         try {
             const { data } = await axios({
                 method: 'Get',
-                url: "http://localhost:5000/api/student/getMarks"
+                url: "https://immense-fortress-16423.herokuapp.com/api/student/getMarks"
             })
            dispatch(getMarksHelper(data.result))
         }

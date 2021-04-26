@@ -33,7 +33,7 @@ export const facultyLogin = (facultyCredential) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/faculty/login",
+                url: "https://immense-fortress-16423.herokuapp.com/api/faculty/login",
                 data: facultyCredential
             })
             const { token } = data;
@@ -60,7 +60,7 @@ export const facultyUpdatePassword = (passwordData) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/faculty/updatePassword",
+                url: "https://immense-fortress-16423.herokuapp.com/api/faculty/updatePassword",
                 data: passwordData
             })
             alert("Password Updated Successfully")
@@ -80,7 +80,7 @@ export const getOTPFaculty = (studentEmail) => {
         try {
             await axios({
                 method: 'Post',
-                url: 'http://localhost:5000/api/faculty/forgotPassword',
+                url: 'https://immense-fortress-16423.herokuapp.com/api/faculty/forgotPassword',
                 data: studentEmail
             })
             alert("Otp has been sent to your email")
@@ -101,7 +101,7 @@ export const submitOTPFaculty = (newPasswordWithOtp, history) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/faculty/postOTP",
+                url: "https://immense-fortress-16423.herokuapp.com/api/faculty/postOTP",
                 data: newPasswordWithOtp
             })
             alert("Password Update, kindly login with updated password")
@@ -122,7 +122,7 @@ export const fetchStudents = (department, year, section) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/faculty/fetchStudents",
+                url: "https://immense-fortress-16423.herokuapp.com/api/faculty/fetchStudents",
                 data: { department, year, section}
             })
             dispatch(fetchStudentsHelper(data.result))
@@ -149,7 +149,7 @@ export const facultyUpdate = (updatedData) => {
         try {
             const { data } = await axios({
                 method: 'Post',
-                url: `http://localhost:5000/api/faculty/updateProfile`,
+                url: `https://immense-fortress-16423.herokuapp.com/api/faculty/updateProfile`,
                 data: updatedData
             })
             dispatch(facultyUpdateProfileFlag(true))
@@ -166,7 +166,7 @@ export const markAttendence = (selectedStudents, subjectCode, department, year,
         try {
                 await axios({
                 method: 'Post',
-                    url: "http://localhost:5000/api/faculty/markAttendence",
+                    url: "https://immense-fortress-16423.herokuapp.com/api/faculty/markAttendence",
                 data: { selectedStudents, subjectCode, department, year, section}
                 })
             alert("attendence has been marked successfully")
@@ -187,7 +187,7 @@ export const uploadMarks = (subjectCode, exam, totalMarks, marks,
         try {
             await axios({
                 method: 'Post',
-                url: "http://localhost:5000/api/faculty/uploadMarks",
+                url: "https://immense-fortress-16423.herokuapp.com/api/faculty/uploadMarks",
                 data: {
                     subjectCode, exam, totalMarks, marks, department, year, section,
                     }
@@ -197,7 +197,7 @@ export const uploadMarks = (subjectCode, exam, totalMarks, marks,
                 type: "HELPER",
                 payload: true
             })
-           
+
         }
         catch (err) {
             dispatch({

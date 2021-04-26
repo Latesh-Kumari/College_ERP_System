@@ -72,9 +72,8 @@ const adminGetAllSubjectHelper = (data) => {
     }
 }
 
-// https://apna-erp.herokuapp.com
-// https://apna-erp.herokuapp.com
 // http://localhost:5000
+// https://immense-fortress-16423.herokuapp.comv
 export const adminLogin = (adminCredential) => {
     return async (dispatch) => {
         try {
