@@ -1,17 +1,17 @@
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
-//const sendEmail = require('../utils/nodemailer')
+const sendEmail = require('../utils/nodemailer')
 const Student = require('../models/student')
 const Subject = require('../models/subject')
 const Faculty = require('../models/faculty')
 const Attendence = require('../models/attendence')
 const Mark = require('../models/marks')
 
-//const keys = require('../config/key')
+const keys = require('../config/key')
 
 //File Handler
-//const bufferConversion = require('../utils/bufferConversion')
-//const cloudinary = require('../utils/cloudinary')
+const bufferConversion = require('../utils/bufferConversion')
+const cloudinary = require('../utils/cloudinary')
 
 const validateFacultyLoginInput = require('../validation/facultyLogin')
 const validateFetchStudentsInput = require('../validation/facultyFetchStudent')

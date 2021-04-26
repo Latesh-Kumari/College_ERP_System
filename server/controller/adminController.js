@@ -17,7 +17,7 @@ const Faculty = require('../models/faculty')
 const Admin = require('../models/admin')
 
 //Config
-//const keys = require('../config/key')
+const keys = require('../config/key')
 
 module.exports = {
     addAdmin: async (req, res, next) => {
