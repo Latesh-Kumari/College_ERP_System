@@ -38,7 +38,7 @@ const studentRoutes = require('./routes/studentRoutes')
 app.use(passport.initialize());
 
 //Passport Config.
-//require('./config/passport')(passport)
+require('./config/passport')(passport)
 
 app.use(morgan('dev'))
 
